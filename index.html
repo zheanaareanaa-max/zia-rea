@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Undangan Pernikahan - Reza & Zia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts (Sacramento for Cursive, Cormorant Garamond for Serif, Montserrat for Clean text) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rose-gold': '#B76E79',
+                        'champagne': '#F7E7CE',
+                        'cream': '#FFFDD0',
+                        'soft-pink': '#FAE8E6',
+                        'dark-rose': '#8B4552',
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        cursive: ['"Sacramento"', 'cursive'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFDD0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #B76E79;
+            border-radius: 4px;
+        }
+
+        /* Flower Petals Canvas Effect */
+        #petal-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-dark {
+            background: rgba(139, 69, 82, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* Animation Keyframes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-sans bg-[#FAF6F0] text-gray-800 overflow-x-hidden">
+
+    <!-- Canvas Petal Effect -->
+    <canvas id="petal-canvas"></canvas>
+
+    <!-- Audio Player Controller (Floating Button) -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="audio-toggle" onclick="toggleAudio()" class="w-12 h-12 bg-rose-gold text-white rounded-full shadow-lg flex items-center justify-center hover:bg-dark-rose transition-all duration-300 focus:outline-none animate-pulse-soft">
+            <i id="audio-icon" class="fas font-solid fa-music text-lg"></i>
+        </button>
+    </div>
+
+    <!-- Hidden Audio Tag (Menggunakan Musik Royalty Free) -->
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-115340.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- SECTION 1: COVER DEPAN / HERO SECTION -->
+    <section id="cover" class="relative min-h-screen flex items-center justify-center text-center bg-cover bg-center px-4" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80');">
+        <div class="max-w-3xl mx-auto text-white z-10 p-6 rounded-2xl glass-dark border border-white/20 shadow-2xl animate-float">
+            <p class="font-sans tracking-widest text-sm md:text-base uppercase text-champagne mb-2">Undangan Pernikahan Digital</p>
+            <h1 class="font-cursive text-6xl md:text-8xl text-champagne my-2 leading-tight">Reza & Zia</h1>
+            <p class="font-serif text-lg md:text-xl italic text-gray-200 mb-6">"Dan di antara tanda-tanda (kebesaran-Nya) ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri..."</p>
+            
+            <div class="inline-block bg-white/10 backdrop-blur-md border border-white/30 rounded-lg px-6 py-2 mb-8">
+                <p class="text-sm font-light uppercase tracking-wider text-champagne">Sabtu, 20 Desember 2030</p>
+            </div>
+
+            <div>
+                <button onclick="openInvitation()" class="inline-flex items-center gap-2 bg-rose-gold hover:bg-dark-rose text-white px-8 py-3 rounded-full font-medium transition-all transform hover:scale-105 shadow-xl border border-rose-gold/30">
+                    <i class="fas fa-envelope-open"></i> Buka Undangan
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- MAIN CONTENT (Ditampilkan setelah klik Buka Undangan) -->
+    <div id="main-content">
+
+        <!-- NAVBAR INTERAKTIF -->
+        <nav class="sticky top-0 z-40 glass shadow-sm border-b border-rose-gold/10">
+            <div class="max-w-4xl mx-auto px-4 py-3 flex justify-around items-center text-sm font-medium text-dark-rose">
+                <a href="#mempelai" class="hover:text-rose-gold transition flex flex-col md:flex-row items-center gap-1">
+                    <i class="fas fa-heart text-xs"></i> <span>Mempelai</span>
+                </a>
+                <a href="#acara" class="hover:text-rose-gold transition flex flex-col md:flex-row items-center gap-1">
+                    <i class="fas fa-calendar-alt text-xs"></i> <span>Acara</span>
+                </a>
+                <a href="#galeri" class="hover:text-rose-gold transition flex flex-col md:flex-row items-center gap-1">
+                    <i class="fas fa-images text-xs"></i> <span>Galeri</span>
+                </a>
+                <a href="#ucapan" class="hover:text-rose-gold transition flex flex-col md:flex-row items-center gap-1">
+                    <i class="fas fa-comment-dots text-xs"></i> <span>Ucapan</span>
+                </a>
+            </div>
+        </nav>
+
+
+        <!-- SECTION 2: DETAIL MEMPELAI -->
+        <section id="mempelai" class="py-20 px-4 max-w-5xl mx-auto text-center">
+            <div class="mb-12">
+                <span class="font-cursive text-4xl text-rose-gold">Om Swastiastu / Assalamu’alaikum Wr. Wb.</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-dark-rose font-bold mt-2">Mempelai Pria & Wanita</h2>
+                <div class="w-24 h-1 bg-rose-gold mx-auto mt-3 rounded-full"></div>
+                <p class="mt-4 text-gray-600 max-w-xl mx-auto text-sm md:text-base">
+                    Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan syukuran pernikahan putra-putri kami:
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <!-- Mempelai Pria (Song Kang) -->
+                <div class="glass p-8 rounded-3xl shadow-lg border border-rose-gold/20 transform hover:-translate-y-2 transition duration-300">
+                    <div class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-rose-gold shadow-md">
+                        <img src="foto Reza .png" alt="Daniel Cavandra" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-dark-rose">Reza Aditya Putra</h3>
+                    <p class="text-xs uppercase tracking-widest text-rose-gold font-semibold mt-1">Mempelai Pria</p>
+                    <p class="mt-4 text-sm text-gray-600">
+                        Putra Pertama dari<br>
+                        <span class="font-medium text-gray-800">Bpk. Andra Canandra</span> & <span class="font-medium text-gray-800">Ibu Lauren haliza</span>
+                    </p>
+                    <div class="mt-4 flex justify-center gap-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-rose-gold/10 text-rose-gold flex items-center justify-center hover:bg-rose-gold hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mempelai Wanita (Kim You-jung) -->
+                <div class="glass p-8 rounded-3xl shadow-lg border border-rose-gold/20 transform hover:-translate-y-2 transition duration-300">
+                    <div class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-rose-gold shadow-md">
+                        <img src="foto aku.jpg" alt="Carren Coupen Sillian" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-dark-rose">Zia Rea Desviani</h3>
+                    <p class="text-xs uppercase tracking-widest text-rose-gold font-semibold mt-1">Mempelai Wanita</p>
+                    <p class="mt-4 text-sm text-gray-600">
+                        Putri Kedua dari<br>
+                        <span class="font-medium text-gray-800">Bpk. Arron Wilions</span> & <span class="font-medium text-gray-800">Ibu. Calistya Narrencia</span>
+                    </p>
+                    <div class="mt-4 flex justify-center gap-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-rose-gold/10 text-rose-gold flex items-center justify-center hover:bg-rose-gold hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 3: DETAIL ACARA & COUNTDOWN -->
+        <section id="acara" class="py-20 bg-gradient-to-b from-soft-pink/30 to-cream/50 px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="font-serif text-3xl md:text-4xl text-dark-rose font-bold">Rangkaian Acara</h2>
+                <div class="w-24 h-1 bg-rose-gold mx-auto mt-3 rounded-full mb-10"></div>
+
+                <!-- COUNTDOWN TIMER -->
+                <div class="glass p-6 md:p-8 rounded-2xl shadow-md border border-rose-gold/20 mb-12">
+                    <h3 class="font-serif text-xl text-dark-rose mb-4 font-semibold">Menghitung Hari Menuju Hari Bahagia</h3>
+                    <div id="timer" class="grid grid-cols-4 gap-2 md:gap-4 max-w-lg mx-auto">
+                        <div class="bg-white p-3 md:p-4 rounded-xl shadow-sm border border-rose-gold/10">
+                            <span id="days" class="block font-bold text-2xl md:text-4xl text-rose-gold">00</span>
+                            <span class="text-xs text-gray-500 uppercase">Hari</span>
+                        </div>
+                        <div class="bg-white p-3 md:p-4 rounded-xl shadow-sm border border-rose-gold/10">
+                            <span id="hours" class="block font-bold text-2xl md:text-4xl text-rose-gold">00</span>
+                            <span class="text-xs text-gray-500 uppercase">Jam</span>
+                        </div>
+                        <div class="bg-white p-3 md:p-4 rounded-xl shadow-sm border border-rose-gold/10">
+                            <span id="minutes" class="block font-bold text-2xl md:text-4xl text-rose-gold">00</span>
+                            <span class="text-xs text-gray-500 uppercase">Menit</span>
+                        </div>
+                        <div class="bg-white p-3 md:p-4 rounded-xl shadow-sm border border-rose-gold/10">
+                            <span id="seconds" class="block font-bold text-2xl md:text-4xl text-rose-gold">00</span>
+                            <span class="text-xs text-gray-500 uppercase">Detik</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KARTU JADWAL AKAD & RESEPSI -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Akad Nikah -->
+                    <div class="bg-white p-8 rounded-3xl shadow-md border border-rose-gold/20 hover:shadow-xl transition">
+                        <div class="w-14 h-14 bg-rose-gold/10 text-rose-gold rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                            <i class="fas fa-ring"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-dark-rose">Akad Nikah</h3>
+                        <p class="text-gray-500 text-sm mt-1"><i class="far fa-calendar-alt text-rose-gold"></i> Sabtu, 20 Desember 2030</p>
+                        <p class="text-gray-500 text-sm mt-1"><i class="far fa-clock text-rose-gold"></i> 08.00 - 10.00 WIB</p>
+                        <p class="text-gray-700 font-medium mt-4">Grand Ballroom Hotel Santika</p>
+                        <p class="text-gray-500 text-xs">Jl. Sukajadi No. 123, Bandung</p>
+                        <a href="https://maps.google.com" target="_blank" class="mt-6 inline-block bg-rose-gold/10 hover:bg-rose-gold hover:text-white text-rose-gold text-xs font-semibold px-5 py-2.5 rounded-full transition">
+                            <i class="fas fa-map-marker-alt mr-1"></i> Petunjuk Lokasi
+                        </a>
+                    </div>
+
+                    <!-- Resepsi Nikah -->
+                    <div class="bg-white p-8 rounded-3xl shadow-md border border-rose-gold/20 hover:shadow-xl transition">
+                        <div class="w-14 h-14 bg-rose-gold/10 text-rose-gold rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                            <i class="fas fa-glass-cheers"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-dark-rose">Resepsi Nikah</h3>
+                        <p class="text-gray-500 text-sm mt-1"><i class="far fa-calendar-alt text-rose-gold"></i> Sabtu, 20 Desember 2030</p>
+                        <p class="text-gray-500 text-sm mt-1"><i class="far fa-clock text-rose-gold"></i> 10.00 - 15.00 WIB</p>
+                        <p class="text-gray-700 font-medium mt-4">Grand Ballroom Hotel Santika</p>
+                        <p class="text-gray-500 text-xs">Jl. Sukajadi No. 123, Bandung</p>
+                        <a href="https://maps.google.com" target="_blank" class="mt-6 inline-block bg-rose-gold/10 hover:bg-rose-gold hover:text-white text-rose-gold text-xs font-semibold px-5 py-2.5 rounded-full transition">
+                            <i class="fas fa-map-marker-alt mr-1"></i> Petunjuk Lokasi
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 4: GALERI FOTO -->
+        <section id="galeri" class="py-20 px-4 max-w-5xl mx-auto text-center">
+            <h2 class="font-serif text-3xl md:text-4xl text-dark-rose font-bold">Galeri Momen Bahagia</h2>
+            <div class="w-24 h-1 bg-rose-gold mx-auto mt-3 rounded-full mb-10"></div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="overflow-hidden rounded-2xl shadow-md border border-rose-gold/20">
+                    <img src="tugs undangan/drem.jpg" alt="Prewedding 1" class="w-full h-64 object-cover transform hover:scale-110 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-2xl shadow-md border border-rose-gold/20">
+                    <img src="tugs undangan/merried.jpg" alt="Prewedding 2" class="w-full h-64 object-cover transform hover:scale-110 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-2xl shadow-md border border-rose-gold/20">
+                    <img src="tugs undangan/nikahan.jpg" alt="Prewedding 3" class="w-full h-64 object-cover transform hover:scale-110 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-2xl shadow-md border border-rose-gold/20">
+                    <img src="tugs undangan/cincin.jpg" alt="Prewedding 4" class="w-full h-64 object-cover transform hover:scale-110 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-2xl shadow-md border border-rose-gold/20">
+                    <img src="tugs undangan/nikahan 2.jpg" alt="Prewedding 5" class="w-full h-64 object-cover transform hover:scale-110 transition duration-500">
+                </div>
+                <div class="overflow-hidden rounded-2xl shadow-md border border-rose-gold/20">
+                    <img src="tugs undangan/nikahan 3.jpg" alt="Prewedding 6" class="w-full h-64 object-cover transform hover:scale-110 transition duration-500">
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 5: DIGITAL GIFT / AMPLOP DIGITAL -->
+        <section class="py-16 bg-soft-pink/20 px-4">
+            <div class="max-w-2xl mx-auto text-center glass p-8 rounded-3xl shadow-lg border border-rose-gold/20">
+                <div class="w-12 h-12 bg-rose-gold/10 text-rose-gold rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h2 class="font-serif text-2xl md:text-3xl text-dark-rose font-bold">Tanda Kasih (Amplop Digital)</h2>
+                <p class="text-xs md:text-sm text-gray-600 mt-2 mb-6">Doa Restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika Anda ingin memberikan hadiah, Anda dapat mengirimkannya melalui:</p>
+
+                <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm mb-4 flex items-center justify-between">
+                    <div class="text-left">
+                        <p class="font-bold text-dark-rose">Bank BCA</p>
+                        <p class="text-sm text-gray-600 font-mono">1234 5678 90</p>
+                        <p class="text-xs text-gray-500">a.n. Rizky Pratama</p>
+                    </div>
+                    <button onclick="copyToClipboard('1234567890', this)" class="bg-rose-gold/10 text-rose-gold hover:bg-rose-gold hover:text-white text-xs px-4 py-2 rounded-lg font-medium transition">
+                        <i class="far fa-copy mr-1"></i> Salin
+                    </button>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                    <div class="text-left">
+                        <p class="font-bold text-dark-rose">Bank Mandiri</p>
+                        <p class="text-sm text-gray-600 font-mono">0987 6543 21</p>
+                        <p class="text-xs text-gray-500">a.n. Anisa Rahmawati</p>
+                    </div>
+                    <button onclick="copyToClipboard('0987654321', this)" class="bg-rose-gold/10 text-rose-gold hover:bg-rose-gold hover:text-white text-xs px-4 py-2 rounded-lg font-medium transition">
+                        <i class="far fa-copy mr-1"></i> Salin
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 6: FORM UCAPAN & DOA (RSVP) -->
+        <section id="ucapan" class="py-20 px-4 max-w-3xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="font-serif text-3xl md:text-4xl text-dark-rose font-bold">Buku Tamu & Ucapan Doa</h2>
+                <div class="w-24 h-1 bg-rose-gold mx-auto mt-3 rounded-full"></div>
+                <p class="text-sm text-gray-600 mt-2">Berikan doa dan ucapan terbaik untuk kedua mempelai</p>
+            </div>
+
+            <!-- Form -->
+            <form id="rsvp-form" onsubmit="handleRSVP(event)" class="glass p-6 md:p-8 rounded-3xl shadow-lg border border-rose-gold/20 mb-8">
+                <div class="mb-4">
+                    <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">Nama Lengkap</label>
+                    <input type="text" id="guest-name" required placeholder="Masukkan nama Anda" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-rose-gold text-sm bg-white/80">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">Konfirmasi Kehadiran</label>
+                    <select id="guest-status" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-rose-gold text-sm bg-white/80">
+                        <option value="Hadir">Ya, Saya Akan Hadir</option>
+                        <option value="Tidak Hadir">Maaf, Tidak Bisa Hadir</option>
+                        <option value="Ragu-ragu">Masih Ragu-ragu</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">Pesan & Doa Ucapan</label>
+                    <textarea id="guest-message" rows="4" required placeholder="Tuliskan pesan ucapan doa..." class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-rose-gold text-sm bg-white/80"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-rose-gold hover:bg-dark-rose text-white py-3 rounded-xl font-medium transition shadow-md">
+                    <i class="fas fa-paper-plane mr-2"></i> Kirim Ucapan
+                </button>
+            </form>
+
+            <!-- Daftar Ucapan -->
+            <div id="wishes-list" class="space-y-4 max-h-96 overflow-y-auto pr-2">
+                <!-- Ucapan Bawaan -->
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-rose-gold/10">
+                    <div class="flex justify-between items-center mb-1">
+                        <h4 class="font-bold text-dark-rose text-sm">Sirey & teman teman</h4>
+                        <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium"><i class="fas fa-check-circle mr-1"></i>Hadir</span>
+                    </div>
+                    <p class="text-xs text-gray-600">Selamat ya Reza dan Zia! Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Aamiin!</p>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-rose-gold/10">
+                    <div class="flex justify-between items-center mb-1">
+                        <h4 class="font-bold text-dark-rose text-sm">Salsya & pasangan</h4>
+                        <span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium"><i class="fas fa-check-circle mr-1"></i>Hadir</span>
+                    </div>
+                    <p class="text-xs text-gray-600">Selamat menempuh hidup baru sahabatku. Semoga lancar sampai hari H!</p>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- FOOTER -->
+        <footer class="py-8 bg-dark-rose text-white text-center text-xs">
+            <p class="font-cursive text-2xl text-champagne mb-1">Reza & Zia</p>
+            <p class="text-gray-300">Terima kasih atas doa & restu Anda</p>
+            <p class="text-gray-400 mt-4 text-[10px]">&copy; 2026 Undangan Pernikahan Digital. Created with ❤️</p>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- 1. OPEN INVITATION & MUSIC PLAYER ---
+        const bgMusic = document.getElementById('bg-music');
+        const audioIcon = document.getElementById('audio-icon');
+        let isPlaying = false;
+
+        function openInvitation() {
+            // Scroll ke main content
+            document.getElementById('mempelai').scrollIntoView({ behavior: 'smooth' });
+            
+            // Putar audio jika belum diputar
+            if (!isPlaying) {
+                playAudio();
+            }
+        }
+
+        function playAudio() {
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                audioIcon.className = "fas fa-music text-lg animate-spin";
+            }).catch(err => console.log("Audio autoplay diblokir browser:", err));
+        }
+
+        function toggleAudio() {
+            if (isPlaying) {
+                bgMusic.pause();
+                audioIcon.className = "fas fa-volume-mute text-lg";
+                isPlaying = false;
+            } else {
+                playAudio();
+            }
+        }
+
+        // --- 2. COUNTDOWN TIMER ---
+        const weddingDate = new Date('December 20, 2026 08:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+                document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+                document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- 3. COPY REKENING CLIPBOARD ---
+        function copyToClipboard(text, btnElement) {
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            const originalHTML = btnElement.innerHTML;
+            btnElement.innerHTML = `<i class="fas fa-check mr-1"></i> Tersalin!`;
+            btnElement.classList.add("bg-green-600", "text-white");
+            
+            setTimeout(() => {
+                btnElement.innerHTML = originalHTML;
+                btnElement.classList.remove("bg-green-600", "text-white");
+            }, 2000);
+        }
+
+        // --- 4. INTERACTIVE RSVP FORM ---
+        function handleRSVP(event) {
+            event.preventDefault();
+            const name = document.getElementById('guest-name').value;
+            const status = document.getElementById('guest-status').value;
+            const message = document.getElementById('guest-message').value;
+
+            let badgeColor = "bg-green-100 text-green-700";
+            if (status === "Tidak Hadir") badgeColor = "bg-red-100 text-red-700";
+            if (status === "Ragu-ragu") badgeColor = "bg-yellow-100 text-yellow-700";
+
+            const wishHTML = `
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-rose-gold/10 animate-fade-in">
+                    <div class="flex justify-between items-center mb-1">
+                        <h4 class="font-bold text-dark-rose text-sm">${name}</h4>
+                        <span class="text-[10px] ${badgeColor} px-2 py-0.5 rounded-full font-medium">${status}</span>
+                    </div>
+                    <p class="text-xs text-gray-600">${message}</p>
+                </div>
+            `;
+
+            const wishesList = document.getElementById('wishes-list');
+            wishesList.insertAdjacentHTML('afterbegin', wishHTML);
+
+            // Reset Form
+            document.getElementById('rsvp-form').reset();
+            alert("Terima kasih atas doa & konfirmasinya!");
+        }
+
+        // --- 5. CANVAS FALLING PETALS ANIMATION ---
+        const canvas = document.getElementById('petal-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const petals = [];
+        const numPetals = 25;
+
+        class Petal {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.size = Math.random() * 8 + 6;
+                this.speedY = Math.random() * 1.5 + 0.8;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.angle = Math.random() * 360;
+                this.spin = Math.random() * 2 - 1;
+                this.color = ['#B76E79', '#FADADD', '#E8C5C8'][Math.floor(Math.random() * 3)];
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += Math.sin(this.angle * Math.PI / 180) * 0.8;
+                this.angle += this.spin;
+
+                if (this.y > canvas.height) {
+                    this.y = -20;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < numPetals; i++) {
+            petals.push(new Petal());
+        }
+
+        function animatePetals() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            petals.forEach(petal => {
+                petal.update();
+                petal.draw();
+            });
+            requestAnimationFrame(animatePetals);
+        }
+
+        window.onload = function() {
+            animatePetals();
+        };
+    </script>
+</body>
+</html>
